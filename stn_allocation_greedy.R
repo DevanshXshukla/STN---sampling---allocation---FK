@@ -1,4 +1,4 @@
-setwd("C:/Users/samanbhavani.vc/Desktop/New folder")
+setwd("path")
 rm(list = ls())
 library(RMySQL)
 library(lubridate)
@@ -48,7 +48,7 @@ gcs_get_object
 
 
 #Put your input file here:
-input_df= data.table(fread("C:\\Users\\samanbhavani.vc\\Desktop\\New folder\\STN_INPUT.csv"))
+input_df= data.table(fread("path"))
 # sh_code = data.table(gcs_get_object("ipc/Nav/IPC_Hyperlocal/sourcing_hub.csv", bucket = gcs_bucket2))
 # sh_code[,`:=`(facility_id = NULL)]
 # setnames(sh_code , old='city',new='City')
@@ -224,5 +224,5 @@ evening = alloc_df[Cron_Timing %in% c('E','ME')]
 
 
 #output
-fwrite(alloc_df,"C:\\Users\\samanbhavani.vc\\Desktop\\New folder\\STN_OUTPUT.csv")
+fwrite(alloc_df,"path")
 
