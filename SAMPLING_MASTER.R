@@ -6,12 +6,10 @@
 
 # Objective: This script creates sampling master same as the DS Target Master
 # Created Date: 04-06-2024
-# Created By; Gyan Prakash
-# 
 
 ##################################################################################
 
-setwd("E:/gyan work/Working file/scripts/R")
+setwd("path")
 
 ##################################################################################
 
