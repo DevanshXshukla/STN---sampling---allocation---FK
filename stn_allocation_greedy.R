@@ -128,6 +128,12 @@ input_df[,`:=`(to_exclude = ifelse(FSN %in% unique(exclusion_list_all$FSN),1,to_
 input_df[,`:=`(final=ifelse(to_exclude ==1,0,final))]
 input_df = input_df[final ==0]
 
+###################### excluded fsn extracted
+excluded_fsn_df <- input_df[final == 1]
+excluded_fsn_df <- unique(excluded_fsn_df[, .(fsn, fc, darkstore)])
+fwrite(excluded_fsn_df, "excluded_fsn.csv")
+######################
+
 inventory = data.table(gcs_get_object("ipc/Nav/Hyperlocal_IPC/Inventory_Snapshot.csv", bucket = gcs_bucket,saveToDisk = "temp_file.csv",overwrite = TRUE))
 inventory<-read.csv("temp_file.csv")
 setDT(inventory)
