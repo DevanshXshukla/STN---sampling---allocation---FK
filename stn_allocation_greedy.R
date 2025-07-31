@@ -174,6 +174,9 @@ whitelist[,`:=`(seller_id = as.character(seller_id))]
 filtered_inventory[, seller_id := as.character(seller_id)]
 filtered_inventory <- filtered_inventory[seller_id %in% whitelist$seller_id]
 filtered_inventory[, inv_index := .I]
+filtered_inventory[, expiry_date := suppressWarnings(ymd(expiry_date))]
+filtered_inventory[is.na(expiry_date), expiry_date := as.Date("2030-04-18")]
+
 ###################### ALLOCATION LOGIC
 
 # For unique referencing
@@ -189,7 +192,7 @@ for (i in seq_len(nrow(grouped_input))) {
   qty <- grouped_input$Quantity[i]
   allocated <- 0
   
-  matching_inventory <- filtered_inventory[fsn == fsn_val & fc == fc_val & atp > 0]
+  matching_inventory <- filtered_inventory[fsn == fsn_val & fc == fc_val & atp > 0][order_by(expiry)]
   
   for (j in seq_len(nrow(matching_inventory))) {
     if (allocated >= qty) break
